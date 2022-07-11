@@ -1,0 +1,12 @@
+{
+  "name": "bun-todo",
+  "devDependencies": {
+    "bun-types": "^0.1.2",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "start": "bun index.ts",
+    "seed": "bun seed.ts"
+  }
+}
