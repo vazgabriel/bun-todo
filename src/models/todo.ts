@@ -12,14 +12,15 @@ export default class TodoModel {
 
   static createTodo(description: string) {
     const insert = db.prepare(
-      'INSERT INTO todo(description, created_at) VALUES(?, ?) returning id'
+      'INSERT INTO todo(description, created_at) VALUES(?, ?) RETURNING *'
     )
-    const { id } = insert.get(description, new Date().toISOString())
-    return this.getTodoById(id)
+    return insert.get(description, new Date().toISOString())
   }
 
   static completeTodo(id: number) {
-    db.run('UPDATE todo SET completed_at = ? WHERE id = ?', [new Date().toISOString(), id])
-    return this.getTodoById(id)
+    const update = db.prepare(
+      'UPDATE todo SET completed_at = ? WHERE id = ? RETURNING *'
+    )
+    return update.get(new Date().toISOString(), id)
   }
 }
